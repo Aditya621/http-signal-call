@@ -11,13 +11,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [CommonModule],
   providers: [TodoListService],
   template: `
-    <h1> ToSignal used </h1>
-    toSignal      - to create signal which track values of Observable.
-      <hr>
-      toObservable. - to create observable which track values of Signal.
-      <hr>
+    <h1> Angular 16: Signals Vs RxJS Stream
+    </h1>
+   
     <details>
-      <summary style="color: red"> Using toSignal - TODOs</summary>
+      <summary style="color: red"> Using Signals - TODOs</summary>
       @if(todoSignalList()){
         <ul>
           <li style="color: red;" *ngFor="let data of todoSignalList()?.todos">
@@ -48,18 +46,60 @@ import { toSignal } from '@angular/core/rxjs-interop';
         <div>Data is not present</div>
       }
     </details>
+      <br>
+    <details>
+    <summary style="color: green" (click)=toggle()>One Line Explanation
+    @if(showOneLine){
+      <ul>
+        <li> toSignal: create signal which track values of Observable.
+        </li>
+        <li> toObservable: create observable which track values of Signal.
+        </li>
+      </ul>
+    }
+    </summary>
+  </details>
+
+  <br>
+  <li>
+  <a href="https://www.linkedin.com/in/aditya-singh621/"> My LinkedIn </a>
+  </li>
+  <!--
+  <details>
+    <summary> LinkedIn
+    @if(showLinkedin){
+      <ul>
+        
+        <li>Check Latest Post
+        <a href="https://www.linkedin.com/in/aditya-singh621/"></a>
+        </li>
+      </ul>
+    }
+    </summary>
+  </details>
+  -->
   `,
 })
 export class App {
   name = 'Angular';
+  showOneLine = false;
+  showLinkedin = false;
   todoRxJsList: any;
   todoSignalList = toSignal(this._dummyData.getTodos());
 
-  constructor(private _dummyData: TodoListService) {}
+  constructor(private _dummyData: TodoListService) { }
 
   ngOnInint() {
     this.todoRxJsList = this._dummyData.getTodos();
   }
+
+  toggle() {
+    this.showOneLine = !this.showOneLine
+  }
+
+  // toggleLinkedIn() {
+  //   this.showLinkedin = !this.showLinkedin
+  // }
 }
 
 bootstrapApplication(App, {
